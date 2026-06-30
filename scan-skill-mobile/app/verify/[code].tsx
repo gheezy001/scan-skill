@@ -24,14 +24,17 @@ export default function VerifyScreen() {
   useEffect(() => {
     const run = async () => {
       try {
+        console.log('VERIFY CODE:', code);
         const res = await verifyApi.check(code);
+        console.log('VERIFY RESULT:', JSON.stringify(res.data).slice(0, 200));
         setResult(res.data);
         setAiLoading(true);
         verifyApi.analyze(res.data.type, res.data.entity)
           .then((r) => setAi(r.data.analyse))
           .catch(() => {})
           .finally(() => setAiLoading(false));
-      } catch {
+      } catch (e: any) {
+        console.log('VERIFY ERROR:', e.message, e.response?.status);
         setError(true);
       } finally {
         setLoading(false);
@@ -62,6 +65,9 @@ export default function VerifyScreen() {
   }
 
   const { type, conforme, entity } = result;
+  // Support collaborateur et ouvrier (rétrocompat)
+  const isCollaborateur = type === 'collaborateur' || type === 'ouvrier';
+  const isEngin = type === 'engin';
   const bg = conforme ? Colors.greenBg : Colors.redBg;
 
   return (
@@ -78,26 +84,48 @@ export default function VerifyScreen() {
         </View>
 
         <View style={styles.card}>
-          {type === 'ouvrier' && (
+          {isCollaborateur && (
             <>
               <Text style={styles.name}>{entity.prenom} {entity.nom}</Text>
-              <View style={styles.tag}><Text style={styles.tagText}>OUVRIER</Text></View>
+              <View style={styles.tagRow}>
+                {entity.role && (
+                  <View style={styles.tag}>
+                    <Text style={styles.tagText}>{entity.role.toUpperCase()}</Text>
+                  </View>
+                )}
+                {entity.entreprise && (
+                  <View style={[styles.tag, { backgroundColor: '#DBEAFE' }]}>
+                    <Text style={[styles.tagText, { color: '#1E40AF' }]}>{entity.entreprise}</Text>
+                  </View>
+                )}
+              </View>
+              {entity.telephone && (
+                <Text style={styles.phone}>📱 {entity.telephone}</Text>
+              )}
+
               <Text style={styles.cardSection}>Habilitations</Text>
               {entity.habilitations?.length ? entity.habilitations.map((h: any) => (
-                <View key={h.id} style={[styles.habRow, { backgroundColor: h.statut === 'VALIDE' ? '#F0FDF4' : '#FEF2F2', borderColor: h.statut === 'VALIDE' ? '#BBF7D0' : '#FECACA' }]}>
+                <View key={h.id} style={[styles.habRow, {
+                  backgroundColor: h.statut === 'VALIDE' ? '#F0FDF4' : '#FEF2F2',
+                  borderColor: h.statut === 'VALIDE' ? '#BBF7D0' : '#FECACA'
+                }]}>
                   <View style={{ flex: 1 }}>
                     <Text style={styles.habName}>{h.nom}</Text>
                     <Text style={styles.habDate}>Expire le {fmt(h.dateExpiration)}</Text>
                   </View>
-                  <View style={[styles.habBadge, { backgroundColor: h.statut === 'VALIDE' ? '#BBF7D0' : '#FECACA' }]}>
-                    <Text style={[styles.habBadgeText, { color: h.statut === 'VALIDE' ? '#166534' : '#991B1B' }]}>{h.statut}</Text>
+                  <View style={[styles.habBadge, {
+                    backgroundColor: h.statut === 'VALIDE' ? '#BBF7D0' : '#FECACA'
+                  }]}>
+                    <Text style={[styles.habBadgeText, {
+                      color: h.statut === 'VALIDE' ? '#166534' : '#991B1B'
+                    }]}>{h.statut}</Text>
                   </View>
                 </View>
               )) : <Text style={styles.empty}>Aucune habilitation</Text>}
             </>
           )}
 
-          {type === 'engin' && (
+          {isEngin && (
             <>
               <Text style={styles.name}>{entity.type}</Text>
               <Text style={styles.sub}>{entity.marque} {entity.modele}</Text>
@@ -105,13 +133,15 @@ export default function VerifyScreen() {
                 <Text style={styles.immatLabel}>IMMATRICULATION</Text>
                 <Text style={styles.immat}>{entity.immatriculation}</Text>
               </View>
-              <InfoRow label="Prochain contrôle" value={entity.prochainControle ? fmt(entity.prochainControle) : '—'} />
+              <InfoRow label="Lieu affectation" value={entity.lieuAffectation || '—'} />
+              <InfoRow label="Prochaine visite tech." value={entity.prochainVisiteTechnique ? fmt(entity.prochainVisiteTechnique) : '—'} />
+              <InfoRow label="Expiration VGP" value={entity.dateExpirationVGP ? fmt(entity.dateExpirationVGP) : '—'} />
               <InfoRow label="Exp. assurance" value={entity.dateExpirationAssurance ? fmt(entity.dateExpirationAssurance) : '—'} />
-              <InfoRow label="VPG fourni" value={entity.vpgFournit || '—'} />
+              <InfoRow label="VGP fourni" value={entity.vgpFournit || '—'} />
             </>
           )}
 
-          {type === 'appareil' && (
+          {!isCollaborateur && !isEngin && (
             <>
               <Text style={styles.name}>{entity.nom}</Text>
               <Text style={styles.sub}>{entity.type}</Text>
@@ -167,7 +197,9 @@ const styles = StyleSheet.create({
   card: { backgroundColor: '#fff', borderRadius: 24, padding: 22 },
   name: { fontSize: 24, fontWeight: '800', color: Colors.slate800 },
   sub: { fontSize: 15, color: Colors.slate500, marginTop: 2 },
-  tag: { alignSelf: 'flex-start', backgroundColor: Colors.slate100, borderRadius: 99, paddingHorizontal: 12, paddingVertical: 4, marginTop: 8 },
+  phone: { fontSize: 13, color: Colors.slate500, marginTop: 6 },
+  tagRow: { flexDirection: 'row', gap: 6, flexWrap: 'wrap', marginTop: 8 },
+  tag: { alignSelf: 'flex-start', backgroundColor: Colors.slate100, borderRadius: 99, paddingHorizontal: 12, paddingVertical: 4 },
   tagText: { fontSize: 11, fontWeight: '700', color: Colors.slate500, letterSpacing: 0.5 },
   cardSection: { fontSize: 14, fontWeight: '700', color: Colors.slate700, marginTop: 20, marginBottom: 10 },
   habRow: { flexDirection: 'row', alignItems: 'center', padding: 12, borderRadius: 12, borderWidth: 1, marginBottom: 8 },

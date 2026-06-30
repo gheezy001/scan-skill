@@ -20,13 +20,14 @@ export default function ScanScreen() {
     }, [])
   );
 
+
   const handleScan = ({ data }: { data: string }) => {
-    if (scanned) return;
-    setScanned(true);
-    let code = data;
-    // Si le QR contient une URL complète, on extrait le code après /verify/
-    if (code.includes('/verify/')) code = code.split('/verify/')[1];
-    router.push(`/verify/${encodeURIComponent(code)}`);
+  if (scanned) return;
+  setScanned(true);
+  let code = data;
+  if (code.includes('/verify/')) code = code.split('/verify/')[1];
+  if (code.includes('/api/verify/')) code = code.split('/api/verify/')[1];
+  router.push(`/verify/${code}`);
   };
 
   if (!permission) {
