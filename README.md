@@ -1,65 +1,126 @@
-# Scan Skill — Système de gestion de conformité HSE
+# 📡 Scan Skill
 
-Application complète de vérification des habilitations et conformité des engins sur chantier électrique.
+Application de vérification de conformité HSE (Hygiène, Sécurité, Environnement) sur chantier électrique, développée pour **Vinci Energies** dans le cadre d'un challenge innovation.
 
-## Stack
+## 🎯 Le concept
 
-**Backend** : NestJS · Prisma ORM · PostgreSQL · JWT · @nestjs/schedule · Anthropic API  
-**Frontend** : Next.js 15 · Tailwind CSS · jsQR · Axios
+Un agent scanne le QR code d'un collaborateur, d'un engin ou d'un appareillage sur le terrain. L'application vérifie instantanément les habilitations, contrôles techniques et conformités associées, puis affiche un verdict **CONFORME / NON CONFORME** accompagné d'une analyse IA contextuelle.
 
-## Démarrage rapide
+```
+Scan QR code → Vérification habilitations/engins/appareillage + analyse IA → Résultat CONFORME / NON CONFORME
+```
+
+## 🏗️ Architecture
+
+Le projet est composé de trois applications indépendantes partageant le même backend :
+
+```
+scan-skill/
+├── backend/              API NestJS — logique métier, base de données, IA
+├── frontend/             Interface web Next.js — administration
+└── scan-skill-mobile/    Application mobile Expo — scan terrain
+```
+
+## 🛠️ Stack technique
+
+| Composant | Technologie |
+|---|---|
+| Backend | NestJS 10, Prisma ORM, PostgreSQL |
+| Frontend web | Next.js 16, Tailwind CSS |
+| Mobile | React Native / Expo SDK 54 |
+| IA | Claude (Anthropic) — `claude-sonnet-4-6` |
+| Authentification | JWT |
+| Stockage fichiers | Local (dev) → Azure Blob Storage (prod) |
+
+## 📦 Fonctionnalités
+
+### 👷 Collaborateurs
+Gestion complète : identité, photo, rôle, entreprise, contact d'urgence, pièce d'identité, groupe sanguin, et historique des habilitations avec documents justificatifs.
+
+### 🛡️ Habilitations
+Suivi des dates de validité avec calcul automatique du statut (valide / expiré), alertes 30 jours avant expiration, types personnalisables (HTA, BT, CACES, SST, visite médicale...).
+
+### 🏗️ Engins
+Suivi des contrôles techniques, VGP (Vérification Générale Périodique), assurance, avec documents associés.
+
+### 🔧 Appareillage
+Inventaire des appareils de mesure et outillage avec documentation technique et statut de disponibilité.
+
+### 📋 Mode Opératoire
+Procédures structurées en activités séquentielles, avec workflow d'approbation (Approuvé / Non approuvé) et documents par étape.
+
+### 📱 Scan QR multi-support
+Vérification de conformité accessible sans authentification — pensée pour un usage terrain rapide, sur web comme sur mobile.
+
+### 🤖 Analyse IA
+Chaque scan déclenche une analyse contextuelle par Claude, qui synthétise la situation en langage naturel et donne un verdict actionnable.
+
+## 🚀 Démarrage rapide
+
+### Prérequis
+- Node.js 18+
+- PostgreSQL
+- Un compte Anthropic (clé API) pour l'analyse IA
+- Expo Go (pour tester l'app mobile)
 
 ### Backend
 
 ```bash
 cd backend
-cp .env.example .env
-# Remplir DATABASE_URL, JWT_SECRET, ANTHROPIC_API_KEY dans .env
 npm install
-npx prisma migrate deploy
+cp .env.example .env   # renseigner DATABASE_URL, JWT_SECRET, ANTHROPIC_API_KEY
+npx prisma migrate dev
 npx prisma db seed
 npm run start:dev
 ```
 
-**API** disponible sur `http://localhost:8000/api`  
-**Comptes par défaut** :
-- Admin : `admin@scanskill.com` / `admin123`
-- Agent terrain : `agent@scanskill.com` / `agent123`
+API disponible sur `http://localhost:8000`.
 
-### Frontend
+**Comptes par défaut** (créés par le seed) :
+- Admin : `admin@scanskill.com` / `admin123`
+- Agent : `agent@scanskill.com` / `agent123`
+
+### Frontend web
 
 ```bash
 cd frontend
-cp .env.example .env
-# NEXT_PUBLIC_API_URL=http://localhost:8000
 npm install
 npm run dev
 ```
 
-**App** disponible sur `http://localhost:3000`
+Interface disponible sur `http://localhost:3000`.
 
-## Fonctionnalités
+### Application mobile
 
-- **Scan QR public** : vérification terrain sans login via l'endpoint public `/api/verify/:code` (données limitées, pas d'infos sensibles)
-- **Analyse IA** : verdict clair et actionnable via Claude API après chaque scan
-- **Dashboard** : vue consolidée de la conformité avec filtres et recherche en temps réel
-- **CRON automatique** : mise à jour des statuts expirant chaque nuit + alertes email à 8h (J-30)
-- **Import CSV** : intégration en masse des ouvriers, habilitations et engins
-- **Export CSV** : extraction des données pour reporting
-- **PWA** : installable sur mobile, idéal pour le terrain
-
-## QR Codes
-
-Les URLs des QR codes suivent ce format :
-
-```
-https://votre-domaine.com/verify/ouvrier-{uuid}
-https://votre-domaine.com/verify/engin-{uuid}
-https://votre-domaine.com/verify/appareil-{uuid}
+```bash
+cd scan-skill-mobile
+npm install
 ```
 
-Les IDs sont disponibles dans les pages de gestion (bouton "Lien QR").
+Renseigner l'IP locale du backend dans `app.json` (`extra.apiUrl`), puis :
 
-## Déploiement
+```bash
+npx expo start
+```
 
-Backend et frontend sont configurés pour Vercel. Adapter `FRONTEND_URL` dans les variables d'environnement backend.
+Scanner le QR code affiché avec l'app **Expo Go** (iOS/Android).
+
+## 📂 Documentation par composant
+
+Chaque dossier contient son propre `README.md` avec les instructions détaillées :
+- [`backend/README.md`](./backend/README.md)
+- [`scan-skill-mobile/README.md`](./scan-skill-mobile/README.md)
+
+## ☁️ Déploiement
+
+- **Backend** : déployé sur Render (production), migration prévue vers **Azure Container Apps** en s'appuyant sur l'infrastructure existante du projet Green & Safe Copilot (Vinci Energies)
+- **Base de données** : PostgreSQL (Railway en développement, Azure Database for PostgreSQL en cible)
+- **Stockage fichiers** : Azure Blob Storage (cible production)
+
+## 👥 Équipe
+
+Projet développé par une équipe de 3 personnes dans le cadre du challenge innovation Vinci Energies.
+
+## 📄 Licence
+
+Projet interne Vinci Energies — usage restreint.
