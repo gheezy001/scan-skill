@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "Scan Skill",
+    "slug": "scan-skill-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "scanskill",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.vincienergies.scanskill",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Scan Skill utilise la caméra pour scanner les QR codes de conformité sur le chantier."
+      }
+    },
+    "android": {
+      "package": "com.vincienergies.scanskill",
+      "permissions": [
+        "CAMERA"
+      ]
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Autoriser Scan Skill à accéder à la caméra pour scanner les QR codes."
+        }
+      ],
+      "expo-asset"
+    ],
+    "extra": {
+      "apiUrl": "http://192.168.2.149:8000"
+    }
+  }
+}

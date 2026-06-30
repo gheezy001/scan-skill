@@ -1,0 +1,16 @@
+Before recording: have the app already running (streamlit run app/app.py) and the browser open on the clean landing page.
+
+
+0:00–0:10 — Open. Say: "This is the NPS prediction tool I built for the retention team. It predicts whether a customer is a Detractor, Passive, or Promoter, so the team knows who to contact first." (Show the title and the intro line.)
+
+
+0:10–0:30 — Pick mode. Leave "Pick an existing customer" selected, choose a Customer ID, click Predict NPS. Say: "I can pick an existing customer… and the model predicts the class, shows the probabilities, and lists the main drivers behind the prediction." (Let the bar chart and drivers appear.)
+
+
+0:30–0:45 — The drivers + action. Scroll to the drivers list and the Detractor warning box. Say: "For a likely Detractor, it also flags the most useful action — moving them to a longer contract — which came from the drivers analysis."
+
+
+0:45–1:05 — Manual mode. Switch to "Enter details by hand." Set Contract = Month-to-Month, Tenure = 3, a high Monthly Charge, Internet = Fiber Optic. Click Predict. Say: "I can also enter a customer by hand. Here's a brand-new, month-to-month fibre customer on a high charge — the model correctly flags a high detraction risk."
+
+
+1:05–1:15 — Close. Say: "The model is honest about its limits — it catches about 62% of Detractors and I audited it for fairness — but it gives the retention team a clear, actionable starting point."
