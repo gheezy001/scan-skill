@@ -7,8 +7,8 @@ export declare class EnginsController {
             id: string;
             createdAt: Date;
             updatedAt: Date;
-            statut: import(".prisma/client").$Enums.StatutEngin;
             photo: string | null;
+            statut: import(".prisma/client").$Enums.StatutEngin;
             type: string;
             marque: string | null;
             modele: string | null;
@@ -30,9 +30,9 @@ export declare class EnginsController {
     findOne(id: string): Promise<{
         appareils: {
             id: string;
+            nom: string;
             createdAt: Date;
             updatedAt: Date;
-            nom: string;
             statut: import(".prisma/client").$Enums.StatutAppareil;
             reference: string;
             type: string;
@@ -47,8 +47,8 @@ export declare class EnginsController {
         id: string;
         createdAt: Date;
         updatedAt: Date;
-        statut: import(".prisma/client").$Enums.StatutEngin;
         photo: string | null;
+        statut: import(".prisma/client").$Enums.StatutEngin;
         type: string;
         marque: string | null;
         modele: string | null;
@@ -67,8 +67,8 @@ export declare class EnginsController {
         id: string;
         createdAt: Date;
         updatedAt: Date;
-        statut: import(".prisma/client").$Enums.StatutEngin;
         photo: string | null;
+        statut: import(".prisma/client").$Enums.StatutEngin;
         type: string;
         marque: string | null;
         modele: string | null;
@@ -87,8 +87,8 @@ export declare class EnginsController {
         id: string;
         createdAt: Date;
         updatedAt: Date;
-        statut: import(".prisma/client").$Enums.StatutEngin;
         photo: string | null;
+        statut: import(".prisma/client").$Enums.StatutEngin;
         type: string;
         marque: string | null;
         modele: string | null;
@@ -107,8 +107,8 @@ export declare class EnginsController {
         id: string;
         createdAt: Date;
         updatedAt: Date;
-        statut: import(".prisma/client").$Enums.StatutEngin;
         photo: string | null;
+        statut: import(".prisma/client").$Enums.StatutEngin;
         type: string;
         marque: string | null;
         modele: string | null;

@@ -5,9 +5,9 @@ export declare class ModeOperatoireService {
     findAll(search?: string, statut?: string): Promise<({
         activites: {
             id: string;
+            description: string | null;
             createdAt: Date;
             updatedAt: Date;
-            description: string | null;
             document: string | null;
             titre: string;
             ordre: number;
@@ -15,18 +15,18 @@ export declare class ModeOperatoireService {
         }[];
     } & {
         id: string;
+        description: string | null;
         createdAt: Date;
         updatedAt: Date;
-        description: string | null;
         statut: import(".prisma/client").$Enums.StatutMO;
         titre: string;
     })[]>;
     findOne(id: string): Promise<{
         activites: {
             id: string;
+            description: string | null;
             createdAt: Date;
             updatedAt: Date;
-            description: string | null;
             document: string | null;
             titre: string;
             ordre: number;
@@ -34,9 +34,9 @@ export declare class ModeOperatoireService {
         }[];
     } & {
         id: string;
+        description: string | null;
         createdAt: Date;
         updatedAt: Date;
-        description: string | null;
         statut: import(".prisma/client").$Enums.StatutMO;
         titre: string;
     }>;
@@ -46,9 +46,9 @@ export declare class ModeOperatoireService {
     }): Promise<{
         activites: {
             id: string;
+            description: string | null;
             createdAt: Date;
             updatedAt: Date;
-            description: string | null;
             document: string | null;
             titre: string;
             ordre: number;
@@ -56,9 +56,9 @@ export declare class ModeOperatoireService {
         }[];
     } & {
         id: string;
+        description: string | null;
         createdAt: Date;
         updatedAt: Date;
-        description: string | null;
         statut: import(".prisma/client").$Enums.StatutMO;
         titre: string;
     }>;
@@ -69,9 +69,9 @@ export declare class ModeOperatoireService {
     }): Promise<{
         activites: {
             id: string;
+            description: string | null;
             createdAt: Date;
             updatedAt: Date;
-            description: string | null;
             document: string | null;
             titre: string;
             ordre: number;
@@ -79,26 +79,26 @@ export declare class ModeOperatoireService {
         }[];
     } & {
         id: string;
+        description: string | null;
         createdAt: Date;
         updatedAt: Date;
-        description: string | null;
         statut: import(".prisma/client").$Enums.StatutMO;
         titre: string;
     }>;
     delete(id: string): Promise<{
         id: string;
+        description: string | null;
         createdAt: Date;
         updatedAt: Date;
-        description: string | null;
         statut: import(".prisma/client").$Enums.StatutMO;
         titre: string;
     }>;
     approuver(id: string): Promise<{
         activites: {
             id: string;
+            description: string | null;
             createdAt: Date;
             updatedAt: Date;
-            description: string | null;
             document: string | null;
             titre: string;
             ordre: number;
@@ -106,18 +106,18 @@ export declare class ModeOperatoireService {
         }[];
     } & {
         id: string;
+        description: string | null;
         createdAt: Date;
         updatedAt: Date;
-        description: string | null;
         statut: import(".prisma/client").$Enums.StatutMO;
         titre: string;
     }>;
     rejeter(id: string): Promise<{
         activites: {
             id: string;
+            description: string | null;
             createdAt: Date;
             updatedAt: Date;
-            description: string | null;
             document: string | null;
             titre: string;
             ordre: number;
@@ -125,9 +125,9 @@ export declare class ModeOperatoireService {
         }[];
     } & {
         id: string;
+        description: string | null;
         createdAt: Date;
         updatedAt: Date;
-        description: string | null;
         statut: import(".prisma/client").$Enums.StatutMO;
         titre: string;
     }>;
@@ -138,9 +138,9 @@ export declare class ModeOperatoireService {
         ordre?: number;
     }): Promise<{
         id: string;
+        description: string | null;
         createdAt: Date;
         updatedAt: Date;
-        description: string | null;
         document: string | null;
         titre: string;
         ordre: number;
@@ -153,9 +153,9 @@ export declare class ModeOperatoireService {
         ordre?: number;
     }): Promise<{
         id: string;
+        description: string | null;
         createdAt: Date;
         updatedAt: Date;
-        description: string | null;
         document: string | null;
         titre: string;
         ordre: number;
@@ -163,9 +163,9 @@ export declare class ModeOperatoireService {
     }>;
     deleteActivite(id: string): Promise<{
         id: string;
+        description: string | null;
         createdAt: Date;
         updatedAt: Date;
-        description: string | null;
         document: string | null;
         titre: string;
         ordre: number;

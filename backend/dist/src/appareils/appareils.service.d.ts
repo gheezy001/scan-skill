@@ -6,16 +6,15 @@ export declare class AppareilsService {
         data: ({
             collaborateurAssigne: {
                 id: string;
-                email: string | null;
-                role: string;
-                createdAt: Date;
-                updatedAt: Date;
                 nom: string;
                 entreprise: string | null;
-                statut: import(".prisma/client").$Enums.StatutCollaborateur;
+                createdAt: Date;
+                updatedAt: Date;
                 prenom: string;
                 telephone: string;
+                email: string | null;
                 photo: string | null;
+                role: string;
                 dateEmbauche: Date | null;
                 adresse: string | null;
                 nationalite: string | null;
@@ -24,13 +23,14 @@ export declare class AppareilsService {
                 typePieceIdentite: import(".prisma/client").$Enums.TypePieceIdentite | null;
                 contactUrgenceNom: string | null;
                 contactUrgenceTel: string | null;
+                statut: import(".prisma/client").$Enums.StatutCollaborateur;
             };
             enginAssigne: {
                 id: string;
                 createdAt: Date;
                 updatedAt: Date;
-                statut: import(".prisma/client").$Enums.StatutEngin;
                 photo: string | null;
+                statut: import(".prisma/client").$Enums.StatutEngin;
                 type: string;
                 marque: string | null;
                 modele: string | null;
@@ -47,9 +47,9 @@ export declare class AppareilsService {
             };
         } & {
             id: string;
+            nom: string;
             createdAt: Date;
             updatedAt: Date;
-            nom: string;
             statut: import(".prisma/client").$Enums.StatutAppareil;
             reference: string;
             type: string;
@@ -67,16 +67,15 @@ export declare class AppareilsService {
     findOne(id: string): Promise<{
         collaborateurAssigne: {
             id: string;
-            email: string | null;
-            role: string;
-            createdAt: Date;
-            updatedAt: Date;
             nom: string;
             entreprise: string | null;
-            statut: import(".prisma/client").$Enums.StatutCollaborateur;
+            createdAt: Date;
+            updatedAt: Date;
             prenom: string;
             telephone: string;
+            email: string | null;
             photo: string | null;
+            role: string;
             dateEmbauche: Date | null;
             adresse: string | null;
             nationalite: string | null;
@@ -85,13 +84,14 @@ export declare class AppareilsService {
             typePieceIdentite: import(".prisma/client").$Enums.TypePieceIdentite | null;
             contactUrgenceNom: string | null;
             contactUrgenceTel: string | null;
+            statut: import(".prisma/client").$Enums.StatutCollaborateur;
         };
         enginAssigne: {
             id: string;
             createdAt: Date;
             updatedAt: Date;
-            statut: import(".prisma/client").$Enums.StatutEngin;
             photo: string | null;
+            statut: import(".prisma/client").$Enums.StatutEngin;
             type: string;
             marque: string | null;
             modele: string | null;
@@ -108,9 +108,9 @@ export declare class AppareilsService {
         };
     } & {
         id: string;
+        nom: string;
         createdAt: Date;
         updatedAt: Date;
-        nom: string;
         statut: import(".prisma/client").$Enums.StatutAppareil;
         reference: string;
         type: string;
@@ -124,16 +124,15 @@ export declare class AppareilsService {
     create(data: any): Promise<{
         collaborateurAssigne: {
             id: string;
-            email: string | null;
-            role: string;
-            createdAt: Date;
-            updatedAt: Date;
             nom: string;
             entreprise: string | null;
-            statut: import(".prisma/client").$Enums.StatutCollaborateur;
+            createdAt: Date;
+            updatedAt: Date;
             prenom: string;
             telephone: string;
+            email: string | null;
             photo: string | null;
+            role: string;
             dateEmbauche: Date | null;
             adresse: string | null;
             nationalite: string | null;
@@ -142,13 +141,14 @@ export declare class AppareilsService {
             typePieceIdentite: import(".prisma/client").$Enums.TypePieceIdentite | null;
             contactUrgenceNom: string | null;
             contactUrgenceTel: string | null;
+            statut: import(".prisma/client").$Enums.StatutCollaborateur;
         };
         enginAssigne: {
             id: string;
             createdAt: Date;
             updatedAt: Date;
-            statut: import(".prisma/client").$Enums.StatutEngin;
             photo: string | null;
+            statut: import(".prisma/client").$Enums.StatutEngin;
             type: string;
             marque: string | null;
             modele: string | null;
@@ -165,9 +165,9 @@ export declare class AppareilsService {
         };
     } & {
         id: string;
+        nom: string;
         createdAt: Date;
         updatedAt: Date;
-        nom: string;
         statut: import(".prisma/client").$Enums.StatutAppareil;
         reference: string;
         type: string;
@@ -181,16 +181,15 @@ export declare class AppareilsService {
     update(id: string, data: any): Promise<{
         collaborateurAssigne: {
             id: string;
-            email: string | null;
-            role: string;
-            createdAt: Date;
-            updatedAt: Date;
             nom: string;
             entreprise: string | null;
-            statut: import(".prisma/client").$Enums.StatutCollaborateur;
+            createdAt: Date;
+            updatedAt: Date;
             prenom: string;
             telephone: string;
+            email: string | null;
             photo: string | null;
+            role: string;
             dateEmbauche: Date | null;
             adresse: string | null;
             nationalite: string | null;
@@ -199,13 +198,14 @@ export declare class AppareilsService {
             typePieceIdentite: import(".prisma/client").$Enums.TypePieceIdentite | null;
             contactUrgenceNom: string | null;
             contactUrgenceTel: string | null;
+            statut: import(".prisma/client").$Enums.StatutCollaborateur;
         };
         enginAssigne: {
             id: string;
             createdAt: Date;
             updatedAt: Date;
-            statut: import(".prisma/client").$Enums.StatutEngin;
             photo: string | null;
+            statut: import(".prisma/client").$Enums.StatutEngin;
             type: string;
             marque: string | null;
             modele: string | null;
@@ -222,9 +222,9 @@ export declare class AppareilsService {
         };
     } & {
         id: string;
+        nom: string;
         createdAt: Date;
         updatedAt: Date;
-        nom: string;
         statut: import(".prisma/client").$Enums.StatutAppareil;
         reference: string;
         type: string;
@@ -237,9 +237,9 @@ export declare class AppareilsService {
     }>;
     delete(id: string): Promise<{
         id: string;
+        nom: string;
         createdAt: Date;
         updatedAt: Date;
-        nom: string;
         statut: import(".prisma/client").$Enums.StatutAppareil;
         reference: string;
         type: string;

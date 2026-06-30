@@ -11,38 +11,37 @@ export declare class OuvriersService {
             habilitations: ({
                 typeHabilitation: {
                     id: string;
-                    createdAt: Date;
-                    updatedAt: Date;
                     nom: string;
                     description: string | null;
                     entreprise: string | null;
                     dureeValidite: string | null;
+                    createdAt: Date;
+                    updatedAt: Date;
                 };
             } & {
                 id: string;
-                createdAt: Date;
-                updatedAt: Date;
                 nom: string;
                 entreprise: string | null;
+                createdAt: Date;
+                updatedAt: Date;
+                statut: import(".prisma/client").$Enums.StatutHabilitation;
                 dateObtention: Date;
                 dateExpiration: Date;
                 document: string | null;
-                statut: import(".prisma/client").$Enums.StatutHabilitation;
                 typeId: string;
                 collaborateurId: string;
             })[];
         } & {
             id: string;
-            email: string | null;
-            role: string;
-            createdAt: Date;
-            updatedAt: Date;
             nom: string;
             entreprise: string | null;
-            statut: import(".prisma/client").$Enums.StatutCollaborateur;
+            createdAt: Date;
+            updatedAt: Date;
             prenom: string;
             telephone: string;
+            email: string | null;
             photo: string | null;
+            role: string;
             dateEmbauche: Date | null;
             adresse: string | null;
             nationalite: string | null;
@@ -51,6 +50,7 @@ export declare class OuvriersService {
             typePieceIdentite: import(".prisma/client").$Enums.TypePieceIdentite | null;
             contactUrgenceNom: string | null;
             contactUrgenceTel: string | null;
+            statut: import(".prisma/client").$Enums.StatutCollaborateur;
         })[];
         total: number;
         page: number;
@@ -60,31 +60,31 @@ export declare class OuvriersService {
         habilitations: ({
             typeHabilitation: {
                 id: string;
-                createdAt: Date;
-                updatedAt: Date;
                 nom: string;
                 description: string | null;
                 entreprise: string | null;
                 dureeValidite: string | null;
+                createdAt: Date;
+                updatedAt: Date;
             };
         } & {
             id: string;
-            createdAt: Date;
-            updatedAt: Date;
             nom: string;
             entreprise: string | null;
+            createdAt: Date;
+            updatedAt: Date;
+            statut: import(".prisma/client").$Enums.StatutHabilitation;
             dateObtention: Date;
             dateExpiration: Date;
             document: string | null;
-            statut: import(".prisma/client").$Enums.StatutHabilitation;
             typeId: string;
             collaborateurId: string;
         })[];
         appareils: {
             id: string;
+            nom: string;
             createdAt: Date;
             updatedAt: Date;
-            nom: string;
             statut: import(".prisma/client").$Enums.StatutAppareil;
             reference: string;
             type: string;
@@ -97,16 +97,15 @@ export declare class OuvriersService {
         }[];
     } & {
         id: string;
-        email: string | null;
-        role: string;
-        createdAt: Date;
-        updatedAt: Date;
         nom: string;
         entreprise: string | null;
-        statut: import(".prisma/client").$Enums.StatutCollaborateur;
+        createdAt: Date;
+        updatedAt: Date;
         prenom: string;
         telephone: string;
+        email: string | null;
         photo: string | null;
+        role: string;
         dateEmbauche: Date | null;
         adresse: string | null;
         nationalite: string | null;
@@ -115,43 +114,43 @@ export declare class OuvriersService {
         typePieceIdentite: import(".prisma/client").$Enums.TypePieceIdentite | null;
         contactUrgenceNom: string | null;
         contactUrgenceTel: string | null;
+        statut: import(".prisma/client").$Enums.StatutCollaborateur;
     }>;
     create(data: any): Promise<{
         habilitations: ({
             typeHabilitation: {
                 id: string;
-                createdAt: Date;
-                updatedAt: Date;
                 nom: string;
                 description: string | null;
                 entreprise: string | null;
                 dureeValidite: string | null;
+                createdAt: Date;
+                updatedAt: Date;
             };
         } & {
             id: string;
-            createdAt: Date;
-            updatedAt: Date;
             nom: string;
             entreprise: string | null;
+            createdAt: Date;
+            updatedAt: Date;
+            statut: import(".prisma/client").$Enums.StatutHabilitation;
             dateObtention: Date;
             dateExpiration: Date;
             document: string | null;
-            statut: import(".prisma/client").$Enums.StatutHabilitation;
             typeId: string;
             collaborateurId: string;
         })[];
     } & {
         id: string;
-        email: string | null;
-        role: string;
-        createdAt: Date;
-        updatedAt: Date;
         nom: string;
         entreprise: string | null;
-        statut: import(".prisma/client").$Enums.StatutCollaborateur;
+        createdAt: Date;
+        updatedAt: Date;
         prenom: string;
         telephone: string;
+        email: string | null;
         photo: string | null;
+        role: string;
         dateEmbauche: Date | null;
         adresse: string | null;
         nationalite: string | null;
@@ -160,43 +159,43 @@ export declare class OuvriersService {
         typePieceIdentite: import(".prisma/client").$Enums.TypePieceIdentite | null;
         contactUrgenceNom: string | null;
         contactUrgenceTel: string | null;
+        statut: import(".prisma/client").$Enums.StatutCollaborateur;
     }>;
     update(id: string, data: any): Promise<{
         habilitations: ({
             typeHabilitation: {
                 id: string;
-                createdAt: Date;
-                updatedAt: Date;
                 nom: string;
                 description: string | null;
                 entreprise: string | null;
                 dureeValidite: string | null;
+                createdAt: Date;
+                updatedAt: Date;
             };
         } & {
             id: string;
-            createdAt: Date;
-            updatedAt: Date;
             nom: string;
             entreprise: string | null;
+            createdAt: Date;
+            updatedAt: Date;
+            statut: import(".prisma/client").$Enums.StatutHabilitation;
             dateObtention: Date;
             dateExpiration: Date;
             document: string | null;
-            statut: import(".prisma/client").$Enums.StatutHabilitation;
             typeId: string;
             collaborateurId: string;
         })[];
     } & {
         id: string;
-        email: string | null;
-        role: string;
-        createdAt: Date;
-        updatedAt: Date;
         nom: string;
         entreprise: string | null;
-        statut: import(".prisma/client").$Enums.StatutCollaborateur;
+        createdAt: Date;
+        updatedAt: Date;
         prenom: string;
         telephone: string;
+        email: string | null;
         photo: string | null;
+        role: string;
         dateEmbauche: Date | null;
         adresse: string | null;
         nationalite: string | null;
@@ -205,19 +204,19 @@ export declare class OuvriersService {
         typePieceIdentite: import(".prisma/client").$Enums.TypePieceIdentite | null;
         contactUrgenceNom: string | null;
         contactUrgenceTel: string | null;
+        statut: import(".prisma/client").$Enums.StatutCollaborateur;
     }>;
     delete(id: string): Promise<{
         id: string;
-        email: string | null;
-        role: string;
-        createdAt: Date;
-        updatedAt: Date;
         nom: string;
         entreprise: string | null;
-        statut: import(".prisma/client").$Enums.StatutCollaborateur;
+        createdAt: Date;
+        updatedAt: Date;
         prenom: string;
         telephone: string;
+        email: string | null;
         photo: string | null;
+        role: string;
         dateEmbauche: Date | null;
         adresse: string | null;
         nationalite: string | null;
@@ -226,88 +225,88 @@ export declare class OuvriersService {
         typePieceIdentite: import(".prisma/client").$Enums.TypePieceIdentite | null;
         contactUrgenceNom: string | null;
         contactUrgenceTel: string | null;
+        statut: import(".prisma/client").$Enums.StatutCollaborateur;
     }>;
     addHabilitation(collaborateurId: string, data: any): Promise<{
         typeHabilitation: {
             id: string;
-            createdAt: Date;
-            updatedAt: Date;
             nom: string;
             description: string | null;
             entreprise: string | null;
             dureeValidite: string | null;
+            createdAt: Date;
+            updatedAt: Date;
         };
     } & {
         id: string;
-        createdAt: Date;
-        updatedAt: Date;
         nom: string;
         entreprise: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+        statut: import(".prisma/client").$Enums.StatutHabilitation;
         dateObtention: Date;
         dateExpiration: Date;
         document: string | null;
-        statut: import(".prisma/client").$Enums.StatutHabilitation;
         typeId: string;
         collaborateurId: string;
     }>;
     updateHabilitation(id: string, data: any): Promise<{
         typeHabilitation: {
             id: string;
-            createdAt: Date;
-            updatedAt: Date;
             nom: string;
             description: string | null;
             entreprise: string | null;
             dureeValidite: string | null;
+            createdAt: Date;
+            updatedAt: Date;
         };
     } & {
         id: string;
-        createdAt: Date;
-        updatedAt: Date;
         nom: string;
         entreprise: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+        statut: import(".prisma/client").$Enums.StatutHabilitation;
         dateObtention: Date;
         dateExpiration: Date;
         document: string | null;
-        statut: import(".prisma/client").$Enums.StatutHabilitation;
         typeId: string;
         collaborateurId: string;
     }>;
     deleteHabilitation(id: string): Promise<{
         id: string;
-        createdAt: Date;
-        updatedAt: Date;
         nom: string;
         entreprise: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+        statut: import(".prisma/client").$Enums.StatutHabilitation;
         dateObtention: Date;
         dateExpiration: Date;
         document: string | null;
-        statut: import(".prisma/client").$Enums.StatutHabilitation;
         typeId: string;
         collaborateurId: string;
     }>;
     findAllHabilitations(): Promise<({
         typeHabilitation: {
             id: string;
-            createdAt: Date;
-            updatedAt: Date;
             nom: string;
             description: string | null;
             entreprise: string | null;
             dureeValidite: string | null;
+            createdAt: Date;
+            updatedAt: Date;
         };
         collaborateur: {
             id: string;
-            email: string | null;
-            role: string;
-            createdAt: Date;
-            updatedAt: Date;
             nom: string;
             entreprise: string | null;
-            statut: import(".prisma/client").$Enums.StatutCollaborateur;
+            createdAt: Date;
+            updatedAt: Date;
             prenom: string;
             telephone: string;
+            email: string | null;
             photo: string | null;
+            role: string;
             dateEmbauche: Date | null;
             adresse: string | null;
             nationalite: string | null;
@@ -316,42 +315,42 @@ export declare class OuvriersService {
             typePieceIdentite: import(".prisma/client").$Enums.TypePieceIdentite | null;
             contactUrgenceNom: string | null;
             contactUrgenceTel: string | null;
+            statut: import(".prisma/client").$Enums.StatutCollaborateur;
         };
     } & {
         id: string;
-        createdAt: Date;
-        updatedAt: Date;
         nom: string;
         entreprise: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+        statut: import(".prisma/client").$Enums.StatutHabilitation;
         dateObtention: Date;
         dateExpiration: Date;
         document: string | null;
-        statut: import(".prisma/client").$Enums.StatutHabilitation;
         typeId: string;
         collaborateurId: string;
     })[]>;
     findExpiringHabilitations(days?: number): Promise<({
         typeHabilitation: {
             id: string;
-            createdAt: Date;
-            updatedAt: Date;
             nom: string;
             description: string | null;
             entreprise: string | null;
             dureeValidite: string | null;
+            createdAt: Date;
+            updatedAt: Date;
         };
         collaborateur: {
             id: string;
-            email: string | null;
-            role: string;
-            createdAt: Date;
-            updatedAt: Date;
             nom: string;
             entreprise: string | null;
-            statut: import(".prisma/client").$Enums.StatutCollaborateur;
+            createdAt: Date;
+            updatedAt: Date;
             prenom: string;
             telephone: string;
+            email: string | null;
             photo: string | null;
+            role: string;
             dateEmbauche: Date | null;
             adresse: string | null;
             nationalite: string | null;
@@ -360,17 +359,18 @@ export declare class OuvriersService {
             typePieceIdentite: import(".prisma/client").$Enums.TypePieceIdentite | null;
             contactUrgenceNom: string | null;
             contactUrgenceTel: string | null;
+            statut: import(".prisma/client").$Enums.StatutCollaborateur;
         };
     } & {
         id: string;
-        createdAt: Date;
-        updatedAt: Date;
         nom: string;
         entreprise: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+        statut: import(".prisma/client").$Enums.StatutHabilitation;
         dateObtention: Date;
         dateExpiration: Date;
         document: string | null;
-        statut: import(".prisma/client").$Enums.StatutHabilitation;
         typeId: string;
         collaborateurId: string;
     })[]>;

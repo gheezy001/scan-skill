@@ -7,20 +7,20 @@ export declare class VerifyController {
         conforme: boolean;
         entity: {
             id: string;
-            role: string;
             nom: string;
             entreprise: string;
             habilitations: {
                 id: string;
                 nom: string;
+                statut: import(".prisma/client").$Enums.StatutHabilitation;
                 dateExpiration: Date;
                 document: string;
-                statut: import(".prisma/client").$Enums.StatutHabilitation;
             }[];
-            statut: import(".prisma/client").$Enums.StatutCollaborateur;
             prenom: string;
             telephone: string;
             photo: string;
+            role: string;
+            statut: import(".prisma/client").$Enums.StatutCollaborateur;
         };
     } | {
         type: string;
