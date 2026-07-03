@@ -9,8 +9,6 @@ export class EnginsService {
 
   @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
   async refreshStatutsEngins() {
-    const now = new Date();
-    const thirtyDays = new Date(now.getTime() + 30 * 86400000);
     const engins = await this.prisma.engin.findMany();
     for (const engin of engins) {
       const newStatut = this.calculateStatut(
@@ -31,10 +29,8 @@ export class EnginsService {
   ): string {
     const now = new Date();
     const thirtyDays = new Date(now.getTime() + 30 * 86400000);
-
     const isExpired = (d?: Date | null) => d && new Date(d) < now;
     const isSoon = (d?: Date | null) => d && new Date(d) >= now && new Date(d) < thirtyDays;
-
     if (isExpired(dateExpirationAssurance) || isExpired(prochainVisiteTechnique) || isExpired(dateExpirationVGP)) {
       return 'NON_CONFORME';
     }
@@ -56,7 +52,6 @@ export class EnginsService {
       ];
     }
     if (statut && statut !== 'tous') where.statut = statut as any;
-
     const [data, total] = await Promise.all([
       this.prisma.engin.findMany({ where, orderBy: { createdAt: 'desc' }, skip: (page - 1) * limit, take: limit }),
       this.prisma.engin.count({ where }),
@@ -71,26 +66,27 @@ export class EnginsService {
   }
 
   async create(data: any) {
-    if (data.dateControle) data.dateControle = new Date(data.dateControle);
-    if (data.dernierVisiteTechnique) data.dernierVisiteTechnique = new Date(data.dernierVisiteTechnique);
-    if (data.prochainVisiteTechnique) data.prochainVisiteTechnique = new Date(data.prochainVisiteTechnique);
-    if (data.dateExpirationVGP) data.dateExpirationVGP = new Date(data.dateExpirationVGP);
-    if (data.dateExpirationAssurance) data.dateExpirationAssurance = new Date(data.dateExpirationAssurance);
-
-    const statut = this.calculateStatut(data.dateExpirationAssurance, data.prochainVisiteTechnique, data.dateExpirationVGP);
-    return this.prisma.engin.create({ data: { ...data, statut: statut as any } });
+    // Retirer documentVGP si le client Prisma ne le connait pas encore
+    const { documentVGP, ...enginData } = data;
+    if (enginData.dateControle) enginData.dateControle = new Date(enginData.dateControle);
+    if (enginData.dernierVisiteTechnique) enginData.dernierVisiteTechnique = new Date(enginData.dernierVisiteTechnique);
+    if (enginData.prochainVisiteTechnique) enginData.prochainVisiteTechnique = new Date(enginData.prochainVisiteTechnique);
+    if (enginData.dateExpirationVGP) enginData.dateExpirationVGP = new Date(enginData.dateExpirationVGP);
+    if (enginData.dateExpirationAssurance) enginData.dateExpirationAssurance = new Date(enginData.dateExpirationAssurance);
+    const statut = this.calculateStatut(enginData.dateExpirationAssurance, enginData.prochainVisiteTechnique, enginData.dateExpirationVGP);
+    return this.prisma.engin.create({ data: { ...enginData, statut: statut as any } });
   }
 
   async update(id: string, data: any) {
     await this.findOne(id);
-    if (data.dateControle) data.dateControle = new Date(data.dateControle);
-    if (data.dernierVisiteTechnique) data.dernierVisiteTechnique = new Date(data.dernierVisiteTechnique);
-    if (data.prochainVisiteTechnique) data.prochainVisiteTechnique = new Date(data.prochainVisiteTechnique);
-    if (data.dateExpirationVGP) data.dateExpirationVGP = new Date(data.dateExpirationVGP);
-    if (data.dateExpirationAssurance) data.dateExpirationAssurance = new Date(data.dateExpirationAssurance);
-
-    const statut = this.calculateStatut(data.dateExpirationAssurance, data.prochainVisiteTechnique, data.dateExpirationVGP);
-    return this.prisma.engin.update({ where: { id }, data: { ...data, statut: statut as any } });
+    const { documentVGP, ...enginData } = data;
+    if (enginData.dateControle) enginData.dateControle = new Date(enginData.dateControle);
+    if (enginData.dernierVisiteTechnique) enginData.dernierVisiteTechnique = new Date(enginData.dernierVisiteTechnique);
+    if (enginData.prochainVisiteTechnique) enginData.prochainVisiteTechnique = new Date(enginData.prochainVisiteTechnique);
+    if (enginData.dateExpirationVGP) enginData.dateExpirationVGP = new Date(enginData.dateExpirationVGP);
+    if (enginData.dateExpirationAssurance) enginData.dateExpirationAssurance = new Date(enginData.dateExpirationAssurance);
+    const statut = this.calculateStatut(enginData.dateExpirationAssurance, enginData.prochainVisiteTechnique, enginData.dateExpirationVGP);
+    return this.prisma.engin.update({ where: { id }, data: { ...enginData, statut: statut as any } });
   }
 
   async delete(id: string) {
