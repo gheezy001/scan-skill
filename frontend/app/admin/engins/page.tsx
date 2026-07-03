@@ -14,16 +14,14 @@ function Badge({ statut }: { statut: string }) {
   return <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${m[statut]||'bg-slate-100 text-slate-600'}`}>{statut.replace(/_/g,' ')}</span>;
 }
 
+const EMPTY = { type:'', marque:'', modele:'', immatriculation:'', lieuAffectation:'', dernierVisiteTechnique:'', prochainVisiteTechnique:'', dateExpirationVGP:'', dateExpirationAssurance:'', vgpFournit:'' };
+
 export default function EnginsPage() {
   const [engins, setEngins] = useState<any[]>([]);
   const [search, setSearch] = useState('');
   const [selected, setSelected] = useState<any>(null);
   const [showForm, setShowForm] = useState(false);
-  const [form, setForm] = useState({
-    type:'', marque:'', modele:'', immatriculation:'', lieuAffectation:'',
-    dernierVisiteTechnique:'', prochainVisiteTechnique:'',
-    dateExpirationVGP:'', dateExpirationAssurance:'', vgpFournit:'', documentVGP:'',
-  });
+  const [form, setForm] = useState({...EMPTY});
   const [loading, setLoading] = useState(true);
 
   const load = () => enginsApi.getAll({ search, limit: 100 }).then(r => { setEngins(r.data.data ?? r.data); setLoading(false); });
@@ -33,7 +31,7 @@ export default function EnginsPage() {
     e.preventDefault();
     await enginsApi.create(form);
     setShowForm(false);
-    setForm({ type:'',marque:'',modele:'',immatriculation:'',lieuAffectation:'',dernierVisiteTechnique:'',prochainVisiteTechnique:'',dateExpirationVGP:'',dateExpirationAssurance:'',vgpFournit:'',documentVGP:'' });
+    setForm({...EMPTY});
     load();
   };
 
@@ -43,14 +41,8 @@ export default function EnginsPage() {
   };
 
   const qrValue = (id: string) => `${typeof window !== 'undefined' ? window.location.origin : ''}/verify/engin-${id}`;
-
-  const Field = ({ label, value, onChange, type = 'text', required = false }: any) => (
-    <div>
-      <label className="text-xs text-slate-500 mb-1 block">{label}{required && ' *'}</label>
-      <input type={type} required={required} value={value} onChange={e => onChange(e.target.value)}
-        className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none" />
-    </div>
-  );
+  const ic = "w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-slate-400";
+  const lc = "text-xs text-slate-500 mb-1 block";
 
   return (
     <div className="p-4 md:p-6">
@@ -67,32 +59,23 @@ export default function EnginsPage() {
           <form onSubmit={handleCreate} className="space-y-4">
             <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide">Identification</p>
             <div className="grid grid-cols-2 gap-3">
-              <Field label="Type *" value={form.type} onChange={(v:string)=>setForm({...form,type:v})} required />
-              <Field label="Marque" value={form.marque} onChange={(v:string)=>setForm({...form,marque:v})} />
-              <Field label="Modèle" value={form.modele} onChange={(v:string)=>setForm({...form,modele:v})} />
-              <Field label="Immatriculation *" value={form.immatriculation} onChange={(v:string)=>setForm({...form,immatriculation:v})} required />
-              <Field label="Lieu d'affectation" value={form.lieuAffectation} onChange={(v:string)=>setForm({...form,lieuAffectation:v})} />
-              <Field label="VGP fourni" value={form.vgpFournit} onChange={(v:string)=>setForm({...form,vgpFournit:v})} />
+              <div><label className={lc}>Type *</label><input required value={form.type} onChange={e => setForm({...form, type: e.target.value})} className={ic} /></div>
+              <div><label className={lc}>Marque</label><input value={form.marque} onChange={e => setForm({...form, marque: e.target.value})} className={ic} /></div>
+              <div><label className={lc}>Modèle</label><input value={form.modele} onChange={e => setForm({...form, modele: e.target.value})} className={ic} /></div>
+              <div><label className={lc}>Immatriculation *</label><input required value={form.immatriculation} onChange={e => setForm({...form, immatriculation: e.target.value})} className={ic} /></div>
+              <div><label className={lc}>Lieu d'affectation</label><input value={form.lieuAffectation} onChange={e => setForm({...form, lieuAffectation: e.target.value})} className={ic} /></div>
+              <div><label className={lc}>VGP fourni</label><input value={form.vgpFournit} onChange={e => setForm({...form, vgpFournit: e.target.value})} className={ic} /></div>
             </div>
             <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide mt-2">Dates de contrôle</p>
             <div className="grid grid-cols-2 gap-3">
-              <Field label="Dernière visite technique" value={form.dernierVisiteTechnique} type="date" onChange={(v:string)=>setForm({...form,dernierVisiteTechnique:v})} />
-              <Field label="Prochaine visite technique" value={form.prochainVisiteTechnique} type="date" onChange={(v:string)=>setForm({...form,prochainVisiteTechnique:v})} />
-              <Field label="Expiration VGP" value={form.dateExpirationVGP} type="date" onChange={(v:string)=>setForm({...form,dateExpirationVGP:v})} />
-              <Field label="Expiration assurance" value={form.dateExpirationAssurance} type="date" onChange={(v:string)=>setForm({...form,dateExpirationAssurance:v})} />
-            </div>
-            <div>
-              <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide mt-2 mb-2">Document VGP</p>
-              <FileUpload
-                folder="engins"
-                label="Ajouter le document VGP (PDF, image)"
-                currentUrl={form.documentVGP}
-                onUpload={(url)=>setForm({...form,documentVGP:url})}
-              />
+              <div><label className={lc}>Dernière visite technique</label><input type="date" value={form.dernierVisiteTechnique} onChange={e => setForm({...form, dernierVisiteTechnique: e.target.value})} className={ic} /></div>
+              <div><label className={lc}>Prochaine visite technique</label><input type="date" value={form.prochainVisiteTechnique} onChange={e => setForm({...form, prochainVisiteTechnique: e.target.value})} className={ic} /></div>
+              <div><label className={lc}>Expiration VGP</label><input type="date" value={form.dateExpirationVGP} onChange={e => setForm({...form, dateExpirationVGP: e.target.value})} className={ic} /></div>
+              <div><label className={lc}>Expiration assurance</label><input type="date" value={form.dateExpirationAssurance} onChange={e => setForm({...form, dateExpirationAssurance: e.target.value})} className={ic} /></div>
             </div>
             <div className="flex gap-2">
               <button type="submit" className="bg-[#D50032] text-white px-4 py-2 rounded-xl text-sm">Créer</button>
-              <button type="button" onClick={()=>setShowForm(false)} className="border border-slate-200 px-4 py-2 rounded-xl text-sm">Annuler</button>
+              <button type="button" onClick={() => setShowForm(false)} className="border border-slate-200 px-4 py-2 rounded-xl text-sm">Annuler</button>
             </div>
           </form>
         </div>
@@ -102,7 +85,7 @@ export default function EnginsPage() {
         <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
           {loading ? <div className="p-8 text-center text-slate-400">Chargement...</div>
             : engins.map(e => (
-              <div key={e.id} onClick={()=>setSelected(e)}
+              <div key={e.id} onClick={() => setSelected(e)}
                 className={`flex items-center justify-between px-4 py-3 border-b border-slate-100 cursor-pointer hover:bg-slate-50 ${selected?.id===e.id?'bg-blue-50':''}`}>
                 <div>
                   <p className="font-medium text-sm">{e.type} <span className="text-slate-400 font-normal">{e.marque}</span></p>
@@ -116,14 +99,10 @@ export default function EnginsPage() {
         {selected && (
           <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-4 overflow-y-auto max-h-[80vh]">
             <div className="flex items-start justify-between">
-              <div>
-                <h3 className="font-bold text-lg">{selected.type}</h3>
-                <p className="text-slate-500 text-sm">{selected.marque} {selected.modele}</p>
-              </div>
+              <div><h3 className="font-bold text-lg">{selected.type}</h3><p className="text-slate-500 text-sm">{selected.marque} {selected.modele}</p></div>
               <div className="flex gap-2">
-                <a href={`data:text/plain,${encodeURIComponent(qrValue(selected.id))}`} download={`qr-${selected.immatriculation}.txt`}
-                  className="text-xs border border-slate-200 px-3 py-1.5 rounded-lg text-slate-600">📋 Lien QR</a>
-                <button onClick={()=>handleDelete(selected.id)} className="text-xs border border-red-200 text-red-600 px-3 py-1.5 rounded-lg">Supprimer</button>
+                <a href={`data:text/plain,${encodeURIComponent(qrValue(selected.id))}`} download={`qr-${selected.immatriculation}.txt`} className="text-xs border border-slate-200 px-3 py-1.5 rounded-lg text-slate-600">📋 Lien QR</a>
+                <button onClick={() => handleDelete(selected.id)} className="text-xs border border-red-200 text-red-600 px-3 py-1.5 rounded-lg">Supprimer</button>
               </div>
             </div>
             <Badge statut={selected.statut} />
@@ -143,8 +122,7 @@ export default function EnginsPage() {
               ))}
             </div>
             {selected.documentVGP && (
-              <a href={selected.documentVGP} target="_blank" rel="noopener noreferrer"
-                className="flex items-center gap-2 p-3 bg-blue-50 border border-blue-200 rounded-xl text-sm text-blue-700 hover:bg-blue-100">
+              <a href={selected.documentVGP} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-3 bg-blue-50 border border-blue-200 rounded-xl text-sm text-blue-700 hover:bg-blue-100">
                 📎 Voir le document VGP
               </a>
             )}
